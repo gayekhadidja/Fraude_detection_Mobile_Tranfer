@@ -1,5 +1,3 @@
-
-
 import pandas as pd
 import streamlit as st
 from sklearn.model_selection import train_test_split
@@ -194,7 +192,7 @@ elif page == pages[3]:
     # Charger le modèle depuis le fichier pickle
    
     #with open('XGBClassier.pickle', 'rb') as fichier:
-      #  loaded_model = pickle.load(fichier)
+       # classifier = pickle.load(fichier)
         
     pickle_in = open('XGBClassier.pickle', 'rb') 
     classifier = pickle.load(pickle_in)
