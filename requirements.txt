@@ -10,4 +10,4 @@ sqlalchemy
 duckdb
 joblib
 xgboost
-pickle
+pickle5
