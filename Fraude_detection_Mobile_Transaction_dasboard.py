@@ -197,7 +197,7 @@ elif page == pages[3]:
     from xgboost import XGBClassifier
     from sklearn.metrics import accuracy_score
     
-    import pickle 
+    import pickle5 as pickle 
     #Definition du modèle
     #model = XGBClassifier()
     #model.fit(X_train,y_train)
