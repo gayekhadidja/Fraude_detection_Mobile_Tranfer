@@ -220,7 +220,7 @@ elif page == pages[3]:
         inputs = np.array([step, type_transaction, amount, newbalanceOrg, oldbalanceDest, isflaggegfraude]).astype(float)
     
         # Effectuer la prédiction
-        prediction = classifier.predict([inputs])
+        prediction = XGBClassifier.predict([inputs])
     
         return prediction
     
