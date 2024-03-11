@@ -194,8 +194,12 @@ elif page == pages[3]:
     #with open('XGBClassier.pickle', 'rb') as fichier:
        # classifier = pickle.load(fichier)
         
-    pickle_in = open('XGBClassier.pickle', 'rb') 
-    classifier = pickle.load(pickle_in)
+    #pickle_in = open('XGBClassier.pickle', 'rb') 
+    #classifier = pickle.load(pickle_in)
+
+    import joblib
+    
+    XGBClassifier = joblib.load('xgclassifier_model.joblib')
     
     # Assurez-vous que X_test est correctement défini avant cette ligne
     #y_pred = classifier.predict(X_test)
