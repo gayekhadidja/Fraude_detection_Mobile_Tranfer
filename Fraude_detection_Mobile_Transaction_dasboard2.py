@@ -1,17 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Tue Dec 26 12:10:12 2023
-
-@author: a902744
-"""
-
-# -*- coding: utf-8 -*-
-"""
-Created on Tue Dec 19 13:06:26 2023
-
-@author: a902744
-"""
-
 import pandas as pd
 import streamlit as st
 from sklearn.model_selection import train_test_split
@@ -24,9 +10,6 @@ from plotly.subplots import make_subplots
 #from numerize.numerize import numerize
 from streamlit_extras.metric_cards import style_metric_cards
 from sqlalchemy import create_engine
-
-
-
 
 import random
 import plotly.graph_objects as go
@@ -48,12 +31,6 @@ import numpy as np
 import joblib
 from sklearn.metrics import r2_score
 
-#from pandas_profiling import profile_report
-#from ydata_profiling import ProfileReport
-
-#from streamlit_pandas_profiling import st_profile_report
-#from sklearn.model_selection import train_test_splitfrom sklearn.metrics import plot_confusion_matrix, plot_roc_curve, plot_precision_recall_curve
-#from sklearn.metrics import precision_score, recall_score
 
 import warnings
 warnings.filterwarnings("ignore")
@@ -66,8 +43,6 @@ with open('style.css')as f:
     
 df = pd.read_csv('data_part_1.csv')
 
-
-
 #st.sidebar.title("Sommaire")
 
 pages = ["Contexte du projet", "Exploration des données", "Analyse de données", "Modélisation"]
@@ -75,14 +50,11 @@ pages = ["Contexte du projet", "Exploration des données", "Analyse de données"
 page = st.sidebar.radio("Aller vers la page :", pages)
 
 if page == pages[0] : 
-    
-    
-    
+     
     st.write("### Contexte du projet")
     
     st.write("Ce projet s'inscrit dans un contexte de controle des transactions. L'objectif est de prédire si une transaction est fraudulause ou pas à partir de ses caractéristique.")
-    
-    
+     
     st.write("Ce jeu de données contient des transactions de mobile money générées avec le simulateur PaySim. La simulation était basée sur un échantillon de transactions réelles recueillies par une entreprise qui est le fournisseur du service financier mobile actuellement opérationnel dans plus de 14 pays à travers le monde. Les données sont un ensemble de journaux financiers d'un mois d'un service d'argent mobile mis en œuvre dans un pays africain.")
     
     st.write("Le jeu de données contient (suivant l'exemple ci-dessus) : step - correspond à une unité de temps dans le monde réel. Dans ce cas, 1 étape représente 1 heure de temps. Nombre total d'étapes : 744 (simulation sur 30 jours).")
@@ -122,13 +94,11 @@ elif page == pages[1]:
         
     if st.checkbox("Afficher l'ensemble des variable"):
         st.write(df.columns)
-    
         
     if st.checkbox("Afficher les différents type de transaction "):
        st.write((df["type"]).unique())
        st.write(df['type'].value_counts())
-       
-       
+          
     if st.checkbox("Afficher les distributions des type de transaction"):
         # The classes are heavily skewed we need to solve this issue later.
         st.write('CASH_OUT', round(df['type'].value_counts()[0]/len(df) * 100,2), '% of the dataset')
@@ -142,34 +112,14 @@ elif page == pages[1]:
         st.write('Non Frauduleuse', round(df['isFraud'].value_counts()[0]/len(df) * 100,2), '% of the dataset')
         st.write('Frauduleuse', round(df['isFraud'].value_counts()[1]/len(df) * 100,2), '% of the dataset')
     
-        
- 
 elif page == pages[2]:
     st.write("### Analyse de données")
-    
-    
-    
-   
-    #import matplotlib.pyplot as plt
 
-    # Assurez-vous que 'timestamp' est au format datetime
-    #data['timestamp'] = pd.to_datetime(data['timestamp'])
-    #st.write(data)
-    # KPI : Répartition des montants de transactions par timestamp avec visualisation graphique
-    #plt.figure(figsize=(14, 8))
-    #fig1 = px.scatter(data['timestamp'], data['amount'])
-    #fig2 = px.scatter(data, x="timestamp", y="amount")
-    #plt.title('Répartition des montants de transactions par timestamp')
-    #plt.xlabel('Timestamp')
-    #plt.ylabel('Montant de la transaction')
-    #plt.show()
    # Récupération des données Power BI
     power_bi_url = "https://app.powerbi.com/view?r=eyJrIjoiMzRmYWM3MjEtZTQ5ZC00MGY3LTljNmYtYjBlYWFhMjMxZjg0IiwidCI6IjMzNDQwZmM2LWI3YzctNDEyYy1iYjczLTBlNzBiMDE5OGQ1YSIsImMiOjh9"
 
     # Affichage de l'iframe Power BI dans Streamlit
     st.components.v1.iframe(src=power_bi_url, width=700, height=600, scrolling=True)
-    
-
      
 elif page == pages[3]:
     
@@ -198,93 +148,12 @@ elif page == pages[3]:
     # test avec une methode de machine Learning 
     
     from xgboost import XGBClassifier
-    from sklearn.metrics import accuracy_score
-    
-    import pickle 
-    #Definition du modèle
-    #model = XGBClassifier()
-    #model.fit(X_train,y_train)
-    #Prediction et affichage de la matrice de confusion
-    
-    
+    from sklearn.metrics import accuracy_score  
     import joblib
     
     XGBClassifier = joblib.load('xgclassifier_model.joblib')
 
     
-    # Charger le modèle depuis le fichier pickle
-   
-    #with open('XGBClassier.pickle', 'rb') as fichier:
-      #  loaded_model = pickle.load(fichier)
-        
-    #pickle_in = open('XGBClassier.pickle', 'rb') 
-   # classifier = pickle.dump(pickle_in)
-    
-    
-    import pickle
-    import json
-    import xgboost as xgb
-    
-    class XGBModelWrapper:
-        def __init__(self, model):
-            self.model = model
-    
-        def predict(self, data):
-            # Adapter la logique de prédiction en fonction de votre modèle XGBoost
-            return self.model.predict(data)
-    
-        def save_model(self, file_name):
-            with open(file_name, 'wb') as file:
-                pickle.dump(self.model, file)
-    
-        @classmethod
-        def load_model(cls, file_name):
-            with open(file_name, 'rb') as file:
-                model = pickle.load(file)
-            return cls(model)
-    
-    # Charger le modèle XGBoost depuis le fichier Pickle
-    #pickle_in = open('XGBClassier.pickle', 'rb')
-    #xgb_model = pickle.load(pickle_in)
-    
-    import xgboost as xgb
-
-    
-    #model = pickle.load(open('XGBClassier.pickle', 'rb'))
-    #xgb_model = pickle.load(open('XGBClassier.pickle', 'rb')) 
-    #xgb_model.save_model('xgb_model.json')
-    
-    #xgb_model = xgb.Booster(model_file='xgb_model')
-    #xgb.get_config()
-    
-    # Charger le modèle
-    #loaded_model = xgb.Booster(model_file='XGBClassier.model')
-
-
-
-    # Enveloppez le modèle XGBoost dans la classe XGBModelWrapper
-    #wrapped_xgb_model = XGBModelWrapper(xgb_model)
-
-    # Sauvegarde du modèle XGBoost avec Pickle
-    #wrapped_xgb_model.save_model('xgb_model.pickle')
-
-    # Chargement du modèle XGBoost depuis le fichier Pickle
-    #loaded_xgb_model = XGBModelWrapper.load_model('xgb_model.pickle')
-    
-    
-    #classifier.save_model('model_file_name.json')
-
-    # Assurez-vous que X_test est correctement défini avant cette ligne
-    #y_pred = classifier.predict(X_test)
-    #redict_train = model.predict(X_train)
-    #c_train = confusion_matrix(y_train, predict_train)
-    #predict_test = model.predict(X_test)
-    #c_test = confusion_matrix(y_test, predict_test)
-    
-     
-    # Charger le modèle
-    loaded_xgb_model = xgb.Booster(model_file='XGBClassierTEST.model')
-
     #classifier = pickle.load(pickle_in) 
     import streamlit as st
     import numpy as np
@@ -295,10 +164,6 @@ elif page == pages[3]:
         # Convertir les entrées en nombres (assurez-vous que toutes les valeurs sont numériques)
         inputs = np.array([step, type_transaction, amount, newbalanceOrg, oldbalanceDest, isflaggegfraude]).astype(float)
         
-        
-
-
-        # Suppose inputs is your input data (DataFrame or list)
         # Convert it to a NumPy array
         inputs_array = np.array(inputs)
         
@@ -364,10 +229,7 @@ elif page == pages[3]:
             isflaggedfraud = 1
         else : 
             isflaggedfraud = 0
-            
-            
-    
-        
+              
     
         if st.button("Predict"):
             result = make_prediction(step, type_transaction, amount, newbalanceOrg, oldbalanceDest , isflaggedfraud)
