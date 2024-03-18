@@ -288,30 +288,4 @@ elif page == pages[3]:
                   #  accuracy = accuracy_score(y_test, y_pred)
             #st.write(f"Accuracy: {accuracy}")
             
-        import psycopg2
-    
-    
-    def connect_to_db():
-        conn = psycopg2.connect(
-            host = "localhost",
-            port = 5432,
-            database = "Fraude_detection",
-            user = "postgres",
-            password = "localhostpass"
-     
-        )
-        return conn
-    
-    # Fonction pour insérer les données du formulaire et les résultats de la prédiction dans la base de données
-    def insert_data(conn, step, type_transaction, amount, newbalanceOrg, oldbalanceDest, result):
-        cursor = conn.cursor()
-        print("la connexion est passé")
-        cursor.execute("""
-            INSERT INTO predictions (step, type_transaction, amount, newbalanceorg, oldbalancedest, result)
-            VALUES (%s, %s, %s, %s, %s, %s)
-        """, (step, type_transaction, amount, newbalanceOrg, oldbalanceDest, result))
-        conn.commit()
-        cursor.close()
-    
-
-
+        
