@@ -49,8 +49,9 @@ if page == pages[0] :
       
     st.write("### Contexte du projet")
     
-    st.write("Ce projet s'inscrit dans un contexte de controle des transactions. L'objectif est de prédire si une transaction est fraudulause ou pas à partir de ses caractéristique.")   
-    
+    #st.write("Ce projet s'inscrit dans un contexte de controle des transactions au niveau des transfer transfer d'argent. L'objectif est de prédire si une transaction est fraudulause ou pas à partir de ses caractéristique.")   
+
+    st.write("Pour l'expérimentation de ce projet nous avons les données sur kaggle")
     st.write("Ce jeu de données contient des transactions de mobile money générées avec le simulateur PaySim. La simulation était basée sur un échantillon de transactions réelles recueillies par une entreprise qui est le fournisseur du service financier mobile actuellement opérationnel dans plus de 14 pays à travers le monde. Les données sont un ensemble de journaux financiers d'un mois d'un service d'argent mobile mis en œuvre dans un pays africain.")
     
     st.write("Le jeu de données contient (suivant l'exemple ci-dessus) : step - correspond à une unité de temps dans le monde réel. Dans ce cas, 1 étape représente 1 heure de temps. Nombre total d'étapes : 744 (simulation sur 30 jours).")
