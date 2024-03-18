@@ -1,13 +1,8 @@
-
-
 import pandas as pd
 import streamlit as st
 from sklearn.model_selection import train_test_split
 import plotly.graph_objects as go
 from sklearn.preprocessing import StandardScaler
-
-#from sklearn.ensemble import RandomForestClassifier
-#from sklearn.metrics import confusion_matrix, accuracy_score, classification_report
 
 from sklearn.metrics import confusion_matrix
 import plotly.express as px 
@@ -18,13 +13,6 @@ import xgboost as xgb
 import numpy as np
 import joblib
 from sklearn.metrics import r2_score
-
-#from pandas_profiling import profile_report
-#from ydata_profiling import ProfileReport
-
-#from streamlit_pandas_profiling import st_profile_report
-#from sklearn.model_selection import train_test_splitfrom sklearn.metrics import plot_confusion_matrix, plot_roc_curve, plot_precision_recall_curve
-#from sklearn.metrics import precision_score, recall_score
 
 import warnings
 warnings.filterwarnings("ignore")
