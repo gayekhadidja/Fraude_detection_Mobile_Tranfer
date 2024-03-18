@@ -120,8 +120,6 @@ elif page == pages[1]:
 elif page == pages[2]:
     st.write("### Analyse de données")
     
-    
-    
    
     #import matplotlib.pyplot as plt
 
@@ -212,28 +210,7 @@ elif page == pages[3]:
     #xgb_model = pickle.load(pickle_in)
     
     import xgboost as xgb
-
     
-    #model = pickle.load(open('XGBClassier.pickle', 'rb'))
-    #xgb_model = pickle.load(open('XGBClassier.pickle', 'rb')) 
-    #xgb_model.save_model('xgb_model.json')
-    
-    #xgb_model = xgb.Booster(model_file='xgb_model')
-    #xgb.get_config()
-    
-    # Charger le modèle
-    #loaded_model = xgb.Booster(model_file='XGBClassier.model')
-
-
-
-    # Enveloppez le modèle XGBoost dans la classe XGBModelWrapper
-    #wrapped_xgb_model = XGBModelWrapper(xgb_model)
-
-    # Sauvegarde du modèle XGBoost avec Pickle
-    #wrapped_xgb_model.save_model('xgb_model.pickle')
-
-    # Chargement du modèle XGBoost depuis le fichier Pickle
-    #loaded_xgb_model = XGBModelWrapper.load_model('xgb_model.pickle')
     
     
     #classifier.save_model('model_file_name.json')
@@ -259,8 +236,6 @@ elif page == pages[3]:
         # Convertir les entrées en nombres (assurez-vous que toutes les valeurs sont numériques)
         inputs = np.array([step, type_transaction, amount, newbalanceOrg, oldbalanceDest, isflaggegfraude]).astype(float)
         
-    
-
         # Suppose inputs is your input data (DataFrame or list)
         # Convert it to a NumPy array
         inputs_array = np.array(inputs)
