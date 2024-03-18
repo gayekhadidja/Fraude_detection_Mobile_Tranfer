@@ -3,8 +3,6 @@
 import pandas as pd
 import streamlit as st
 from sklearn.model_selection import train_test_split
-#import numpy as np
-#from visualization import viz_data
 import plotly.graph_objects as go
 from sklearn.preprocessing import StandardScaler
 
@@ -48,13 +46,10 @@ pages = ["Contexte du projet", "Exploration des données", "Analyse de données"
 page = st.sidebar.radio("Aller vers la page :", pages)
 
 if page == pages[0] : 
-    
-    
-    
+      
     st.write("### Contexte du projet")
     
-    st.write("Ce projet s'inscrit dans un contexte de controle des transactions. L'objectif est de prédire si une transaction est fraudulause ou pas à partir de ses caractéristique.")
-    
+    st.write("Ce projet s'inscrit dans un contexte de controle des transactions. L'objectif est de prédire si une transaction est fraudulause ou pas à partir de ses caractéristique.")   
     
     st.write("Ce jeu de données contient des transactions de mobile money générées avec le simulateur PaySim. La simulation était basée sur un échantillon de transactions réelles recueillies par une entreprise qui est le fournisseur du service financier mobile actuellement opérationnel dans plus de 14 pays à travers le monde. Les données sont un ensemble de journaux financiers d'un mois d'un service d'argent mobile mis en œuvre dans un pays africain.")
     
@@ -119,21 +114,7 @@ elif page == pages[1]:
  
 elif page == pages[2]:
     st.write("### Analyse de données")
-    
-   
-    #import matplotlib.pyplot as plt
 
-    # Assurez-vous que 'timestamp' est au format datetime
-    #data['timestamp'] = pd.to_datetime(data['timestamp'])
-    #st.write(data)
-    # KPI : Répartition des montants de transactions par timestamp avec visualisation graphique
-    #plt.figure(figsize=(14, 8))
-    #fig1 = px.scatter(data['timestamp'], data['amount'])
-    #fig2 = px.scatter(data, x="timestamp", y="amount")
-    #plt.title('Répartition des montants de transactions par timestamp')
-    #plt.xlabel('Timestamp')
-    #plt.ylabel('Montant de la transaction')
-    #plt.show()
    # Récupération des données Power BI
     power_bi_url = "https://app.powerbi.com/view?r=eyJrIjoiMzRmYWM3MjEtZTQ5ZC00MGY3LTljNmYtYjBlYWFhMjMxZjg0IiwidCI6IjMzNDQwZmM2LWI3YzctNDEyYy1iYjczLTBlNzBiMDE5OGQ1YSIsImMiOjh9"
 
@@ -166,18 +147,9 @@ elif page == pages[3]:
     np.random.seed(37)
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
     
-    # test avec une methode de machine Learning 
-    
     from xgboost import XGBClassifier
     from sklearn.metrics import accuracy_score
-    
-    import pickle 
-    #Definition du modèle
-    #model = XGBClassifier()
-    #model.fit(X_train,y_train)
-    #Prediction et affichage de la matrice de confusion
-    
-    
+
     import joblib
     
     XGBClassifier = joblib.load('xgclassifier_model.joblib')
@@ -211,9 +183,6 @@ elif page == pages[3]:
     
     import xgboost as xgb
     
-    
-    
-    #classifier.save_model('model_file_name.json')
 
     # Assurez-vous que X_test est correctement défini avant cette ligne
     #y_pred = classifier.predict(X_test)
