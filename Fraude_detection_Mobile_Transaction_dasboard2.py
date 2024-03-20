@@ -114,6 +114,32 @@ elif page == pages[2]:
      
 elif page == pages[3]:
     
+    
+    def connect_to_db():
+        conn = psycopg2.connect(
+            host = "localhost",
+            port = 5432,
+            database = "Fraude_detection",
+            user = "postgres",
+            password = "localhostpass"
+     
+        )
+        return conn
+    
+    #conn = connect_to_db()
+    #print("la connextion est passé")
+    
+    # Fonction pour insérer les données du formulaire et les résultats de la prédiction dans la base de données
+    def insert_data(conn, step, type_transaction, amount, newbalanceOrg, oldbalanceDest, result):
+        cursor = conn.cursor()
+        print("la connexion est passé")
+        cursor.execute("""
+            INSERT INTO predictions (step, type_transaction, amount, newbalanceorg, oldbalancedest, result)
+            VALUES (%s, %s, %s, %s, %s, %s)
+        """, (step, type_transaction, amount, newbalanceOrg, oldbalanceDest, result))
+        conn.commit()
+        cursor.close()
+    
     data_t = df.copy()
     
     data_cash_trans = data_t.query('type == "TRANSFER" or type == "CASH_OUT"')
@@ -136,9 +162,11 @@ elif page == pages[3]:
     np.random.seed(37)
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
     
+    # test avec une methode de machine Learning 
+    
     from xgboost import XGBClassifier
     from sklearn.metrics import accuracy_score
-
+      
     import joblib
     
     XGBClassifier = joblib.load('xgclassifier_model.joblib')
@@ -148,37 +176,16 @@ elif page == pages[3]:
     import json
     import xgboost as xgb
     
-    class XGBModelWrapper:
-        def __init__(self, model):
-            self.model = model
-    
-        def predict(self, data):
-            # Adapter la logique de prédiction en fonction de votre modèle XGBoost
-            return self.model.predict(data)
-    
-        def save_model(self, file_name):
-            with open(file_name, 'wb') as file:
-                pickle.dump(self.model, file)
-    
-        @classmethod
-        def load_model(cls, file_name):
-            with open(file_name, 'rb') as file:
-                model = pickle.load(file)
-            return cls(model)
+
     
     # Charger le modèle XGBoost depuis le fichier Pickle
     #pickle_in = open('XGBClassier.pickle', 'rb')
     #xgb_model = pickle.load(pickle_in)
     
     import xgboost as xgb
-    
 
-    # Assurez-vous que X_test est correctement défini avant cette ligne
-    #y_pred = classifier.predict(X_test)
-    #redict_train = model.predict(X_train)
-    #c_train = confusion_matrix(y_train, predict_train)
-    #predict_test = model.predict(X_test)
-    #c_test = confusion_matrix(y_test, predict_test)
+    
+    
     
      
     # Charger le modèle
@@ -194,19 +201,11 @@ elif page == pages[3]:
         # Convertir les entrées en nombres (assurez-vous que toutes les valeurs sont numériques)
         inputs = np.array([step, type_transaction, amount, newbalanceOrg, oldbalanceDest, isflaggegfraude]).astype(float)
         
-        # Suppose inputs is your input data (DataFrame or list)
-        # Convert it to a NumPy array
-        inputs_array = np.array(inputs)
-        
-
-
         # Effectuer la prédiction
         prediction =  XGBClassifier.predict([inputs])
     
         return prediction
     
-        import streamlit as st
-
     def main():
         with st.form("form"):
             html_temp = """
@@ -215,9 +214,19 @@ elif page == pages[3]:
             </div>
             """
             st.markdown(html_temp, unsafe_allow_html=True)
-    
-            # Entrée pour l'heure de la transaction
-            step = st.text_input("Heure de la transaction", "")
+            
+            d = st.date_input("Date", datetime.date(2024, 3, 19))
+
+            t = st.time_input('Heure', datetime.time(8, 45))
+            # Extraire le mois et le jour de la date d
+            mois = d.month
+            jour = d.day
+            
+            # Extraire l'heure de l'objet t
+            heure = t.hour
+            step = jour * 24 + heure
+            date_time = datetime.datetime.combine(d, t)
+
     
             # Sélection du type de transaction avec une contrainte radio
             type_transaction = st.radio("Sélectionner le type de transaction:", ("Cash_out", "Transfer", "Other"))
@@ -228,12 +237,18 @@ elif page == pages[3]:
             else:
                 type_transaction = 2
     
-            # Contrôle de saisie pour le montant
-            amount = st.text_input("Montant", "")
-    
-            # Contrôle de saisie pour les soldes
-            newbalanceOrg = st.text_input("Solde avant la transaction", "")
-            oldbalanceDest = st.text_input("Solde après la transaction du Destinataire", "")
+            
+         
+
+            # Entrée pour le montant
+            amount = st.number_input("Montant", value=0, step=1)
+            
+            # Contrôle de saisie pour le solde avant la transaction
+            newbalanceOrg = st.number_input("Solde avant la transaction", value=0, step=1)
+            
+            # Contrôle de saisie pour le solde après la transaction du destinataire
+            oldbalanceDest = st.number_input("Solde après la transaction du Destinataire", value=0, step=1)
+
     
             # Détermination de la fraude en fonction du type de transaction et du montant
             if type_transaction == 2 :
@@ -247,11 +262,11 @@ elif page == pages[3]:
         if submitted:
             #if st.button("Predict"):
                 # Affichage des données saisies
-                st.write("Step:", step)
-                st.write("Type transaction:", type_transaction)
-                st.write("Montant:", amount)
-                st.write("Solde avant la transaction:", newbalanceOrg)
-                st.write("Solde après la transaction du Destinataire:", oldbalanceDest)
+                #st.write("Step:", step)
+                #st.write("Type transaction:", type_transaction)
+                #st.write("Montant:", amount)
+                #st.write("Solde avant la transaction:", newbalanceOrg)
+                #st.write("Solde après la transaction du Destinataire:", oldbalanceDest)
     
                 # Effectuer la prédiction
                 result = make_prediction(step, type_transaction, amount, newbalanceOrg, oldbalanceDest, isflaggedfraud)
@@ -261,20 +276,10 @@ elif page == pages[3]:
                     st.success('Transaction non frauduleuse')
                 elif result == 1:
                     st.error('Transaction frauduleuse')
+                    
+                    
     
     if __name__ == "__main__":
         main()
-    
-                        
-               # from sklearn.metrics import accuracy_score
-                
-                # Calcul de l'accuracy (précision)
-                #X_test = [[step, type_transaction, amount, newbalanceOrg, oldbalanceOrig, newbalanceDest, oldbalanceDest, isflaggedfraud]]
-        
-                #if 'X_test' in locals() and 'y_test' in locals():
-            # Supposons que X_test soit une liste de listes représentant les entrées de test
-                 #   y_pred = [make_prediction(*x) for x in X_test]
-                  #  accuracy = accuracy_score(y_test, y_pred)
-            #st.write(f"Accuracy: {accuracy}")
             
         
