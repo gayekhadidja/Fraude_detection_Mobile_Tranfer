@@ -11,3 +11,4 @@ duckdb
 joblib
 xgboost
 pickle5
+psycopg2
