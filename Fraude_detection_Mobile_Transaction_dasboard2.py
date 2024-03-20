@@ -16,7 +16,7 @@ from sklearn.metrics import r2_score
 
 import datetime
 import streamlit as st
-import psycopg2
+#import psycopg2
 
 
 import warnings
@@ -127,7 +127,7 @@ elif page == pages[3]:
             password = "localhostpass"
      
         )
-        return conn
+       # return conn
     
     #conn = connect_to_db()
     #print("la connextion est passé")
