@@ -110,11 +110,9 @@ elif page == pages[2]:
     # Affichage de l'iframe Power BI dans Streamlit
     st.components.v1.iframe(src=power_bi_url, width=700, height=600, scrolling=True)
     
-
-     
+ 
 elif page == pages[3]:
-    
-    
+       
     def connect_to_db():
         conn = psycopg2.connect(
             host = "localhost",
@@ -235,10 +233,7 @@ elif page == pages[3]:
             if type_transaction == "Cash_out":
                 type_transaction = 1
             else:
-                type_transaction = 2
-    
-            
-         
+                type_transaction = 2 
 
             # Entrée pour le montant
             amount = st.number_input("Montant", value=0, step=1)
