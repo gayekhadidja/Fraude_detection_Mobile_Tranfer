@@ -42,7 +42,7 @@ if page == pages[0] :
       
     st.write("### Contexte du projet")
     st.write("Le service de mobile money, de plus en plus prisé grâce aux avancées technologiques et à de nouveaux moyens de communication, simplifie les échanges entre clients et commerçants en convertissant l'argent liquide en argent électronique. Cette monnaie virtuelle permet de régler des achats, de transférer des fonds entre comptes bancaires ou utilisateurs. Cependant, bien que pratique, ce service est devenu une cible de fraudes financières. Les conséquences de cette fraude dans les transactions mobile money sont multiples.")
-    st.write("Ce projet s'inscrit dans un contexte de controle des transactions au niveau des transfer transfer d'argent. L'objectif est de prédire si une transaction est fraudulause ou pas à partir de ses caractéristique.")   
+    st.write("Ce projet s'inscrit dans un contexte de controle des transactions au niveau des transactions Mobile Money. L'objectif est de prédire si une transaction est fraudulause ou pas à partir de ses caractéristique.")   
     
 
     st.write("Pour l'expérimentation de ce projet nous avons les données sur kaggle")
