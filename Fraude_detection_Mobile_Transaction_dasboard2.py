@@ -42,7 +42,8 @@ if page == pages[0] :
       
     st.write("### Contexte du projet")
     st.write("Le service de mobile money, de plus en plus prisé grâce aux avancées technologiques et à de nouveaux moyens de communication, simplifie les échanges entre clients et commerçants en convertissant l'argent liquide en argent électronique. Cette monnaie virtuelle permet de régler des achats, de transférer des fonds entre comptes bancaires ou utilisateurs. Cependant, bien que pratique, ce service est devenu une cible de fraudes financières. Les conséquences de cette fraude dans les transactions mobile money sont multiples.")
-    #st.write("Ce projet s'inscrit dans un contexte de controle des transactions au niveau des transfer transfer d'argent. L'objectif est de prédire si une transaction est fraudulause ou pas à partir de ses caractéristique.")   
+    st.write("Ce projet s'inscrit dans un contexte de controle des transactions au niveau des transfer transfer d'argent. L'objectif est de prédire si une transaction est fraudulause ou pas à partir de ses caractéristique.")   
+    
 
     st.write("Pour l'expérimentation de ce projet nous avons les données sur kaggle")
     st.write("Ce jeu de données contient des transactions de mobile money générées avec le simulateur PaySim. La simulation était basée sur un échantillon de transactions réelles recueillies par une entreprise qui est le fournisseur du service financier mobile actuellement opérationnel dans plus de 14 pays à travers le monde. Les données sont un ensemble de journaux financiers d'un mois d'un service d'argent mobile mis en œuvre dans un pays africain.")
