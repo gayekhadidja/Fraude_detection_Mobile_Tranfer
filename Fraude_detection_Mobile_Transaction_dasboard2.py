@@ -114,7 +114,7 @@ elif page == pages[2]:
     power_bi_url = "https://app.powerbi.com/view?r=eyJrIjoiMzRmYWM3MjEtZTQ5ZC00MGY3LTljNmYtYjBlYWFhMjMxZjg0IiwidCI6IjMzNDQwZmM2LWI3YzctNDEyYy1iYjczLTBlNzBiMDE5OGQ1YSIsImMiOjh9"
 
     # Affichage de l'iframe Power BI dans Streamlit
-    st.components.v1.iframe(src=power_bi_url, width=700, height=600, scrolling=True)
+    st.components.v1.iframe(src=power_bi_url, width=700, height=700, scrolling=True)
     
  
 elif page == pages[3]:
