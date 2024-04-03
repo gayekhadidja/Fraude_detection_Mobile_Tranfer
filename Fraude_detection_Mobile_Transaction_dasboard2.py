@@ -204,11 +204,13 @@ elif page == pages[3]:
     def make_prediction(step, type_transaction, amount, newbalanceOrg, oldbalanceDest, isflaggegfraude):
         # Convertir les entrées en nombres (assurez-vous que toutes les valeurs sont numériques)
         inputs = np.array([step, type_transaction, amount, newbalanceOrg, oldbalanceDest, isflaggegfraude]).astype(float)
+
+        prediction_proba =  XGBClassifier.predict_proba([inputs]) 
         
         # Effectuer la prédiction
         prediction =  XGBClassifier.predict([inputs])
     
-        return prediction
+        return prediction ,  prediction_proba
     
     def main():
         with st.form("form"):
@@ -270,13 +272,15 @@ elif page == pages[3]:
                 #st.write("Solde après la transaction du Destinataire:", oldbalanceDest)
     
                 # Effectuer la prédiction
-                result = make_prediction(step, type_transaction, amount, newbalanceOrg, oldbalanceDest, isflaggedfraud)
+                result , prob = make_prediction(step, type_transaction, amount, newbalanceOrg, oldbalanceDest, isflaggedfraud)
     
                 # Afficher le résultat de la prédiction
                 if result == 0:
                     st.success('Transaction non frauduleuse')
                 elif result == 1:
                     st.error('Transaction frauduleuse')
+
+                st.write('Probabilité de prédiction :', prob)
                     
                     
     
