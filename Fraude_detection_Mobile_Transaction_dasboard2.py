@@ -242,12 +242,18 @@ elif page == pages[3]:
                 type_transaction = 1
             else:
                 type_transaction = 2 
+            # Entrées identifiées du client initiant la transaction
+
+            identifiant_client = st.text("identifiants clients.")
+     
 
             # Entrée pour le montant
             amount = st.number_input("Montant", value=0, step=1)
             
             # Contrôle de saisie pour le solde avant la transaction
             newbalanceOrg = st.number_input("Solde avant la transaction", value=0, step=1)
+
+            identifiant_destinataire = st.text(" identifiants destinataire")
             
             # Contrôle de saisie pour le solde après la transaction du destinataire
             oldbalanceDest = st.number_input("Solde après la transaction du Destinataire", value=0, step=1)
